@@ -1,0 +1,45 @@
+# PostgreSQL configuration with Supabase support
+#
+# For Supabase, set DATABASE_URL in your environment:
+#   DATABASE_URL="postgres://postgres.[project-ref]:[password]@aws-0-[region].pooler.supabase.com:6543/postgres"
+#
+# When DATABASE_URL is set, it overrides the database/host/username/password settings.
+# Disable prepared_statements when using Supabase's connection pooler (pgbouncer).
+#
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  prepared_statements: <%= ENV.fetch("DATABASE_PREPARED_STATEMENTS", "true") %>
+
+development:
+  <<: *default
+  database: rails_template_development
+  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
+  username: <%= ENV.fetch("POSTGRES_USER", "postgres") %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD", "") %>
+
+test:
+  <<: *default
+  database: rails_template_test
+  host: localhost
+  username: <%= ENV.fetch("POSTGRES_USER", "postgres") %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD", "") %>
+
+production:
+  primary: &primary_production
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>
+    prepared_statements: false
+  cache:
+    <<: *primary_production
+    database: rails_template_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: rails_template_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: rails_template_production_cable
+    migrations_paths: db/cable_migrate
