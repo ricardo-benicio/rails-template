@@ -76,14 +76,18 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # ============================================
-  # Admin Routes (will be configured in Phase 5)
+  # Admin Dashboard (Administrate)
   # ============================================
-  # namespace :admin do
-  #   # Administrate routes will be added here
-  # end
+  namespace :admin do
+    resources :users
+
+    root to: "users#index"
+  end
 
   # ============================================
   # Root Path
   # ============================================
+  root "rails/health#show"
+  # TODO: Replace with your main page controller
   # root "home#index"
 end

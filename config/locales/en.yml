@@ -29,3 +29,38 @@
 
 en:
   hello: "Hello world"
+
+  # Admin translations
+  admin:
+    unauthorized: "You are not authorized to access this area."
+    users:
+      cannot_delete_self: "You cannot delete your own account."
+
+  # Administrate translations
+  administrate:
+    actions:
+      new: "New %{name}"
+      edit: "Edit %{name}"
+      destroy: "Delete %{name}"
+      confirm: "Are you sure?"
+      back: "Back"
+      show: "View"
+    controller:
+      create:
+        success: "%{resource} was successfully created."
+      update:
+        success: "%{resource} was successfully updated."
+      destroy:
+        success: "%{resource} was successfully deleted."
+    fields:
+      has_many:
+        more: "and %{count} more"
+      has_one:
+        none: "None"
+    search:
+      clear: "Clear search"
+      label: "Search %{resource}"
+    navigation:
+      back_to_app: "Back to App"
+    sidebar:
+      users: "Users"

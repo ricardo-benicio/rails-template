@@ -232,3 +232,38 @@ pt-BR:
   app:
     name: Rails Template
     description: Template base para aplicações Rails
+
+  # Admin translations
+  admin:
+    unauthorized: "Você não tem autorização para acessar esta área."
+    users:
+      cannot_delete_self: "Você não pode excluir sua própria conta."
+
+  # Administrate translations
+  administrate:
+    actions:
+      new: "Novo %{name}"
+      edit: "Editar %{name}"
+      destroy: "Excluir %{name}"
+      confirm: "Tem certeza?"
+      back: "Voltar"
+      show: "Visualizar"
+    controller:
+      create:
+        success: "%{resource} foi criado(a) com sucesso."
+      update:
+        success: "%{resource} foi atualizado(a) com sucesso."
+      destroy:
+        success: "%{resource} foi excluído(a) com sucesso."
+    fields:
+      has_many:
+        more: "e mais %{count}"
+      has_one:
+        none: "Nenhum"
+    search:
+      clear: "Limpar busca"
+      label: "Buscar %{resource}"
+    navigation:
+      back_to_app: "Voltar ao App"
+    sidebar:
+      users: "Usuários"
