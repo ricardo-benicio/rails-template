@@ -1,0 +1,48 @@
+# AppSignal Ruby gem configuration
+# https://docs.appsignal.com/ruby/configuration.html
+
+default: &default
+  # Push API key for your AppSignal organization
+  push_api_key: <%= ENV.fetch("APPSIGNAL_PUSH_API_KEY", "") %>
+
+  # Application name
+  name: <%= ENV.fetch("APPSIGNAL_APP_NAME", "rails-template") %>
+
+  # Enable request parameters (use with caution in production)
+  send_params: true
+
+  # Enable session data
+  send_session_data: true
+
+  # Filter sensitive parameters
+  filter_parameters:
+    - password
+    - password_confirmation
+    - token
+    - secret
+    - api_key
+    - credit_card
+
+  # Ignore certain actions
+  ignore_actions: []
+
+  # Ignore certain errors
+  ignore_errors:
+    - ActionController::RoutingError
+    - ActiveRecord::RecordNotFound
+
+development:
+  <<: *default
+  active: false
+
+test:
+  <<: *default
+  active: false
+
+staging:
+  <<: *default
+  active: true
+
+production:
+  <<: *default
+  active: true

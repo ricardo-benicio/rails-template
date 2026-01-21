@@ -37,3 +37,18 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Ignore test artifacts
+/coverage/
+/spec/examples.txt
+
+# Ignore IDE/Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Ignore OS files
+.DS_Store
+Thumbs.db

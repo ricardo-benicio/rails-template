@@ -1,60 +1,114 @@
 source "https://rubygems.org"
 
-# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+ruby "3.3.6"
+
+# ============================================
+# Core Rails
+# ============================================
 gem "rails", "~> 8.1.2"
-# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
-gem "propshaft"
-# Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
-# Use the Puma web server [https://github.com/puma/puma]
-gem "puma", ">= 5.0"
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
-# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails"
-# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem "stimulus-rails"
-# Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-gem "tailwindcss-rails"
+gem "propshaft"                    # Modern asset pipeline
+gem "pg", "~> 1.1"                 # PostgreSQL adapter
+gem "puma", ">= 5.0"               # Web server
+gem "bootsnap", require: false     # Reduces boot times through caching
 
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
+# ============================================
+# Frontend (Hotwire + Tailwind)
+# ============================================
+gem "importmap-rails"              # ESM import maps
+gem "turbo-rails"                  # Hotwire SPA-like page accelerator
+gem "stimulus-rails"               # Hotwire modest JavaScript framework
+gem "tailwindcss-rails"            # Tailwind CSS
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+# ============================================
+# Authentication & Authorization
+# ============================================
+gem "devise"                       # Authentication solution
+gem "devise-jwt"                   # JWT authentication for APIs
+gem "bcrypt", "~> 3.1.7"           # Secure password hashing
 
-# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
-gem "solid_cache"
-gem "solid_queue"
-gem "solid_cable"
+# ============================================
+# Admin Dashboard
+# ============================================
+gem "administrate"                 # Admin framework
 
-# Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", require: false
+# ============================================
+# Background Jobs
+# ============================================
+gem "sidekiq", "~> 7.0"            # Background job processing
+gem "redis", "~> 5.0"              # Redis client for Sidekiq
 
-# Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
-gem "kamal", require: false
+# ============================================
+# Database & Caching (Rails 8 defaults)
+# ============================================
+gem "solid_cache"                  # Database-backed cache
+gem "solid_queue"                  # Database-backed job queue
+gem "solid_cable"                  # Database-backed Action Cable
 
-# Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
-gem "thruster", require: false
+# ============================================
+# API & Serialization
+# ============================================
+gem "rack-cors"                    # CORS handling for API
+gem "blueprinter"                  # Fast JSON serialization
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-gem "image_processing", "~> 1.2"
+# ============================================
+# Supabase & Storage
+# ============================================
+gem "image_processing", "~> 1.2"   # Active Storage variants
+gem "aws-sdk-s3", require: false   # S3-compatible storage (Supabase)
 
+# ============================================
+# Email
+# ============================================
+gem "resend"                       # Resend email service
+
+# ============================================
+# Monitoring & Error Tracking
+# ============================================
+gem "appsignal"                    # APM and error tracking
+
+# ============================================
+# Utilities
+# ============================================
+gem "pagy", "~> 9.0"               # Fast pagination
+gem "tzinfo-data", platforms: %i[windows jruby]
+
+# ============================================
+# Deployment
+# ============================================
+gem "kamal", require: false        # Docker deployment
+gem "thruster", require: false     # HTTP caching/compression
+
+# ============================================
+# Development & Test
+# ============================================
 group :development, :test do
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
+  gem "dotenv-rails"               # Environment variables from .env
 
-  # Audits gems for known security defects (use config/bundler-audit.yml to ignore issues)
+  # Security
   gem "bundler-audit", require: false
-
-  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
-  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
+  # Code quality
   gem "rubocop-rails-omakase", require: false
+  gem "rubocop-rspec", require: false
+
+  # Testing
+  gem "rspec-rails", "~> 7.0"      # RSpec testing framework
+  gem "factory_bot_rails"          # Test factories
+  gem "faker"                      # Fake data generator
 end
 
 group :development do
-  # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem "web-console"
+  gem "web-console"                # Console on exception pages
+  gem "letter_opener"              # Preview emails in browser
+  gem "annotate"                   # Annotate models with schema info
+end
+
+group :test do
+  gem "shoulda-matchers"           # RSpec matchers for Rails
+  gem "simplecov", require: false  # Code coverage
+  gem "database_cleaner-active_record" # Clean database between tests
+  gem "webmock"                    # Stub HTTP requests
+  gem "vcr"                        # Record HTTP interactions
 end
