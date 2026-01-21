@@ -4,42 +4,76 @@ require "sidekiq/web"
 
 Rails.application.routes.draw do
   # ============================================
+  # Devise Routes (Web)
+  # ============================================
+  devise_for :users, skip: [ :sessions, :registrations, :passwords, :confirmations ]
+
+  devise_scope :user do
+    # Sessions
+    get "login", to: "devise/sessions#new", as: :new_user_session
+    post "login", to: "devise/sessions#create", as: :user_session
+    delete "logout", to: "devise/sessions#destroy", as: :destroy_user_session
+
+    # Registrations
+    get "signup", to: "devise/registrations#new", as: :new_user_registration
+    post "signup", to: "devise/registrations#create", as: :user_registration
+    get "account", to: "devise/registrations#edit", as: :edit_user_registration
+    patch "account", to: "devise/registrations#update"
+    put "account", to: "devise/registrations#update"
+    delete "account", to: "devise/registrations#destroy"
+
+    # Password recovery
+    get "password/new", to: "devise/passwords#new", as: :new_user_password
+    post "password", to: "devise/passwords#create", as: :user_password
+    get "password/edit", to: "devise/passwords#edit", as: :edit_user_password
+    patch "password", to: "devise/passwords#update"
+    put "password", to: "devise/passwords#update"
+
+    # Confirmation
+    get "confirmation/new", to: "devise/confirmations#new", as: :new_user_confirmation
+    post "confirmation", to: "devise/confirmations#create", as: :user_confirmation
+    get "confirmation", to: "devise/confirmations#show"
+  end
+
+  # ============================================
   # Health Check
   # ============================================
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
   # ============================================
-  # Sidekiq Web UI (protected in production)
+  # Sidekiq Web UI (protected)
   # ============================================
-  # In development, Sidekiq UI is open
-  # In production, it requires admin authentication (configure after Devise setup)
-  if Rails.env.development?
+  authenticate :user, ->(user) { user.admin? } do
     mount Sidekiq::Web => "/sidekiq"
-  else
-    # After Devise is configured, uncomment and use this:
-    # authenticate :user, ->(user) { user.admin? } do
-    #   mount Sidekiq::Web => "/sidekiq"
-    # end
-    mount Sidekiq::Web => "/sidekiq"
+  end
+
+  # ============================================
+  # API Routes (v1)
+  # ============================================
+  namespace :api do
+    namespace :v1 do
+      # Authentication
+      namespace :auth do
+        post "sign_in", to: "sessions#create"
+        delete "sign_out", to: "sessions#destroy"
+        post "sign_up", to: "registrations#create"
+        post "password", to: "passwords#create"
+        put "password", to: "passwords#update"
+        post "confirmation", to: "confirmations#create"
+        get "confirmation", to: "confirmations#show"
+      end
+
+      # Current user
+      get "users/me", to: "users#me"
+      patch "users/me", to: "users#update_me"
+    end
   end
 
   # ============================================
   # PWA (Progressive Web App)
   # ============================================
-  # Render dynamic PWA files from app/views/pwa/*
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # ============================================
-  # API Routes (will be configured in Phase 4)
-  # ============================================
-  # namespace :api do
-  #   namespace :v1 do
-  #     # API routes here
-  #   end
-  # end
 
   # ============================================
   # Admin Routes (will be configured in Phase 5)
