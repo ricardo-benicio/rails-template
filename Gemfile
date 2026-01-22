@@ -50,6 +50,8 @@ gem "solid_cable"                  # Database-backed Action Cable
 gem "rack-cors"                    # CORS handling for API
 gem "blueprinter"                  # Fast JSON serialization
 gem "rack-attack"                  # Rate limiting and throttling
+gem "rswag-api"                    # Swagger API documentation
+gem "rswag-ui"                     # Swagger UI for API docs
 
 # ============================================
 # Supabase & Storage
@@ -99,6 +101,9 @@ group :development, :test do
   gem "rspec-rails", "~> 7.0"      # RSpec testing framework
   gem "factory_bot_rails"          # Test factories
   gem "faker"                      # Fake data generator
+
+  # API Documentation
+  gem "rswag-specs"                # Generate Swagger docs from specs
 end
 
 group :development do

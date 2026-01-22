@@ -1,0 +1,313 @@
+---
+openapi: 3.0.1
+info:
+  title: Rails Template API V1
+  version: v1
+  description: API documentation for the Rails Template application
+  contact:
+    name: API Support
+    email: support@example.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+paths:
+  "/api/v1/auth/sign_in":
+    post:
+      summary: Sign in
+      tags:
+      - Authentication
+      operationId: signIn
+      description: Authenticate user and receive JWT token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/AuthCredentials"
+      responses:
+        '200':
+          description: Successfully authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  user:
+                    "$ref": "#/components/schemas/User"
+                required:
+                - message
+                - user
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+  "/api/v1/auth/sign_out":
+    delete:
+      summary: Sign out
+      tags:
+      - Authentication
+      operationId: signOut
+      description: Invalidate current JWT token
+      security:
+      - bearer_auth: []
+      responses:
+        '200':
+          description: Successfully signed out
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
+        '401':
+          description: No active session
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+  "/api/v1/auth/sign_up":
+    post:
+      summary: Sign up
+      tags:
+      - Authentication
+      operationId: signUp
+      description: Create a new user account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RegistrationParams"
+      responses:
+        '201':
+          description: Successfully registered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  user:
+                    "$ref": "#/components/schemas/User"
+                required:
+                - message
+                - user
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ValidationError"
+  "/api/v1/users/me":
+    get:
+      summary: Get current user
+      tags:
+      - Users
+      operationId: getCurrentUser
+      description: Returns the currently authenticated user's profile
+      security:
+      - bearer_auth: []
+      responses:
+        '200':
+          description: User profile retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    "$ref": "#/components/schemas/UserExtended"
+                required:
+                - user
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+    patch:
+      summary: Update current user
+      tags:
+      - Users
+      operationId: updateCurrentUser
+      description: Updates the currently authenticated user's profile
+      security:
+      - bearer_auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    first_name:
+                      type: string
+                    last_name:
+                      type: string
+              required:
+              - user
+      responses:
+        '200':
+          description: Profile updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  user:
+                    "$ref": "#/components/schemas/UserExtended"
+                required:
+                - message
+                - user
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ValidationError"
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+servers:
+- url: http://localhost:3000
+  description: Development server
+- url: https://{environment}.example.com
+  description: Dynamic server
+  variables:
+    environment:
+      default: api
+      enum:
+      - api
+      - staging
+      description: Server environment
+components:
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from /api/v1/auth/sign_in
+  schemas:
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
+        role:
+          type: string
+          enum:
+          - user
+          - manager
+          - admin
+        full_name:
+          type: string
+        initials:
+          type: string
+      required:
+      - email
+      - first_name
+      - last_name
+    UserExtended:
+      allOf:
+      - "$ref": "#/components/schemas/User"
+      - type: object
+        properties:
+          confirmed_at:
+            type: string
+            format: date-time
+            nullable: true
+          sign_in_count:
+            type: integer
+          current_sign_in_at:
+            type: string
+            format: date-time
+            nullable: true
+          last_sign_in_at:
+            type: string
+            format: date-time
+            nullable: true
+    AuthCredentials:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+            password:
+              type: string
+              minLength: 6
+          required:
+          - email
+          - password
+      required:
+      - user
+    RegistrationParams:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+            password:
+              type: string
+              minLength: 6
+            password_confirmation:
+              type: string
+              minLength: 6
+            first_name:
+              type: string
+            last_name:
+              type: string
+          required:
+          - email
+          - password
+          - password_confirmation
+          - first_name
+          - last_name
+      required:
+      - user
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+      - error
+    ValidationError:
+      type: object
+      properties:
+        error:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+      required:
+      - error
+tags:
+- name: Authentication
+  description: User authentication endpoints
+- name: Users
+  description: User management endpoints

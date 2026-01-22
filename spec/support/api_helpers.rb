@@ -6,8 +6,12 @@ module ApiHelpers
   end
 
   def auth_headers(user)
-    token = Warden::JWTAuth::UserEncoder.new.call(user, :user, nil).first
+    token = generate_jwt(user)
     { "Authorization" => "Bearer #{token}" }
+  end
+
+  def generate_jwt(user)
+    Warden::JWTAuth::UserEncoder.new.call(user, :user, nil).first
   end
 
   def json_headers

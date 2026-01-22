@@ -41,6 +41,12 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # ============================================
+  # API Documentation (Swagger)
+  # ============================================
+  mount Rswag::Ui::Engine => "/api-docs"
+  mount Rswag::Api::Engine => "/api-docs"
+
+  # ============================================
   # Sidekiq Web UI (protected)
   # ============================================
   authenticate :user, ->(user) { user.admin? } do
