@@ -49,6 +49,7 @@ gem "solid_cable"                  # Database-backed Action Cable
 # ============================================
 gem "rack-cors"                    # CORS handling for API
 gem "blueprinter"                  # Fast JSON serialization
+gem "rack-attack"                  # Rate limiting and throttling
 
 # ============================================
 # Supabase & Storage
