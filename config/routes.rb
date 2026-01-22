@@ -87,7 +87,5 @@ Rails.application.routes.draw do
   # ============================================
   # Root Path
   # ============================================
-  root "rails/health#show"
-  # TODO: Replace with your main page controller
-  # root "home#index"
+  root "home#index"
 end

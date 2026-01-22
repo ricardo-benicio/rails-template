@@ -231,7 +231,29 @@ pt-BR:
   # Application specific translations
   app:
     name: Rails Template
-    description: Template base para aplicações Rails
+    description: Um template Rails moderno pronto para produção
+
+  # Home page
+  home:
+    get_started: "Começar"
+    sign_in: "Entrar"
+    dashboard: "Painel"
+    my_account: "Minha Conta"
+    features:
+      title: "Funcionalidades"
+      authentication:
+        title: "Autenticação"
+        description: "Autenticação completa com Devise e JWT para APIs. Inclui confirmação, recuperação de senha e bloqueio de conta."
+      api:
+        title: "API REST"
+        description: "API versionada com autenticação JWT, paginação e serialização JSON com Blueprinter."
+      performance:
+        title: "Performance"
+        description: "Otimizado para produção com Sidekiq, Redis, cache e processamento de jobs em background."
+    tech_stack:
+      title: "Stack Tecnológica"
+    footer:
+      built_with: "Construído com Ruby on Rails"
 
   # Admin translations
   admin:

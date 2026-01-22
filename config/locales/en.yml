@@ -30,6 +30,33 @@
 en:
   hello: "Hello world"
 
+  # App translations
+  app:
+    name: "Rails Template"
+    description: "A modern Rails template ready for production"
+
+  # Home page
+  home:
+    get_started: "Get Started"
+    sign_in: "Sign In"
+    dashboard: "Dashboard"
+    my_account: "My Account"
+    features:
+      title: "Features"
+      authentication:
+        title: "Authentication"
+        description: "Complete authentication with Devise and JWT for APIs. Includes confirmation, password recovery, and account lockout."
+      api:
+        title: "REST API"
+        description: "Versioned API with JWT authentication, pagination, and JSON serialization with Blueprinter."
+      performance:
+        title: "Performance"
+        description: "Optimized for production with Sidekiq, Redis, caching, and background job processing."
+    tech_stack:
+      title: "Tech Stack"
+    footer:
+      built_with: "Built with Ruby on Rails"
+
   # Admin translations
   admin:
     unauthorized: "You are not authorized to access this area."
