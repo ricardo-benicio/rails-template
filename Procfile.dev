@@ -3,4 +3,6 @@
 
 web: bin/rails server -p ${PORT:-3000}
 css: bin/rails tailwindcss:watch
-jobs: bundle exec sidekiq -C config/sidekiq.yml
+
+# Uncomment to enable Sidekiq (requires Redis running)
+# jobs: bundle exec sidekiq -C config/sidekiq.yml
