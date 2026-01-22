@@ -110,6 +110,7 @@ group :development do
   gem "web-console"                # Console on exception pages
   gem "letter_opener"              # Preview emails in browser
   gem "annotate"                   # Annotate models with schema info
+  gem "foreman"                    # Process manager for Procfile-based apps
 end
 
 group :test do

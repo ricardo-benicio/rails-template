@@ -1,2 +1,6 @@
-web: bin/rails server
+# Development Procfile
+# Run with: bin/dev
+
+web: bin/rails server -p ${PORT:-3000}
 css: bin/rails tailwindcss:watch
+jobs: bundle exec sidekiq -C config/sidekiq.yml

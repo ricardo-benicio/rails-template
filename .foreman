@@ -1,0 +1,12 @@
+# Foreman configuration
+# See: https://github.com/ddollar/foreman
+
+# Default Procfile for development
+procfile: Procfile.dev
+
+# Default port
+port: 3000
+
+# Formation (number of each process type to run)
+# Uncomment to customize:
+# formation: web=1,css=1,jobs=1
