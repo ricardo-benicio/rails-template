@@ -62,6 +62,9 @@ en:
     unauthorized: "You are not authorized to access this area."
     users:
       cannot_delete_self: "You cannot delete your own account."
+      discarded: "User has been archived."
+      restored: "User has been restored."
+      permanently_destroyed: "User has been permanently deleted."
 
   # Administrate translations
   administrate:

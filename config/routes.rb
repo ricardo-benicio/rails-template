@@ -79,7 +79,12 @@ Rails.application.routes.draw do
   # Admin Dashboard (Administrate)
   # ============================================
   namespace :admin do
-    resources :users
+    resources :users do
+      member do
+        patch :restore
+        delete :permanently_destroy
+      end
+    end
 
     root to: "users#index"
   end

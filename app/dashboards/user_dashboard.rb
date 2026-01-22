@@ -35,6 +35,9 @@ class UserDashboard < Administrate::BaseDashboard
     failed_attempts: Field::Number,
     locked_at: Field::DateTime,
 
+    # Soft delete
+    discarded_at: Field::DateTime,
+
     # Timestamps
     created_at: Field::DateTime,
     updated_at: Field::DateTime
@@ -73,6 +76,7 @@ class UserDashboard < Administrate::BaseDashboard
     last_sign_in_ip
     failed_attempts
     locked_at
+    discarded_at
     created_at
     updated_at
   ].freeze
@@ -100,6 +104,9 @@ class UserDashboard < Administrate::BaseDashboard
     },
     locked: ->(resources, value) {
       value == "true" ? resources.where.not(locked_at: nil) : resources.where(locked_at: nil)
+    },
+    discarded: ->(resources, value) {
+      value == "true" ? resources.with_discarded.only_discarded : resources
     }
   }.freeze
 

@@ -260,6 +260,9 @@ pt-BR:
     unauthorized: "Você não tem autorização para acessar esta área."
     users:
       cannot_delete_self: "Você não pode excluir sua própria conta."
+      discarded: "Usuário foi arquivado."
+      restored: "Usuário foi restaurado."
+      permanently_destroyed: "Usuário foi excluído permanentemente."
 
   # Administrate translations
   administrate:
