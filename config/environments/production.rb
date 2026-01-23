@@ -1,4 +1,4 @@
-require "active_support/core_ext/integer/time"
+[Error - 15:52:32] Starting client failedtime"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -24,14 +24,14 @@ Rails.application.configure do
   # Store uploaded files on Supabase Storage (see config/storage.yml for options).
   config.active_storage.service = :supabase
 
-  # Assume all access to the app is happening through a SSL-terminating reverse proxy.
-  # config.assume_ssl = true
+  # Assume all access to the app is happening through a SSL-terminating reverse proxy (kamal-proxy).
+  config.assume_ssl = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Skip http-to-https redirect for the default health check endpoint.
-  # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
+  config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 
   # Log to STDOUT with the current request id as a default log tag.
   config.log_tags = [ :request_id ]
