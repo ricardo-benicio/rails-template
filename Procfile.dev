@@ -1,8 +1,9 @@
 # Development Procfile
 # Run with: bin/dev
+#
+# Note: Tailwind CSS is compiled via Puma plugin (config/puma.rb)
 
 web: bin/rails server -p ${PORT:-3000}
-css: bin/rails tailwindcss:watch
 
 # Uncomment to enable Sidekiq (requires Redis running)
 # jobs: bundle exec sidekiq -C config/sidekiq.yml
