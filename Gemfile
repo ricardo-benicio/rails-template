@@ -34,7 +34,7 @@ gem "administrate"                 # Admin framework
 # ============================================
 # Background Jobs
 # ============================================
-gem "sidekiq", "~> 7.0"            # Background job processing
+gem "sidekiq", "~> 8.1"            # Background job processing
 gem "redis", "~> 5.0"              # Redis client for Sidekiq
 
 # ============================================
