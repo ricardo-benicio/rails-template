@@ -98,7 +98,7 @@ group :development, :test do
   gem "rubocop-rspec", require: false
 
   # Testing
-  gem "rspec-rails", "~> 7.0"      # RSpec testing framework
+  gem "rspec-rails", "~> 8.0"      # RSpec testing framework
   gem "factory_bot_rails"          # Test factories
   gem "faker"                      # Fake data generator
 
