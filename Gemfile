@@ -34,7 +34,7 @@ gem "administrate"                 # Admin framework
 # ============================================
 # Background Jobs
 # ============================================
-gem "sidekiq", "~> 7.0"            # Background job processing
+gem "sidekiq", "~> 8.1"            # Background job processing
 gem "redis", "~> 5.0"              # Redis client for Sidekiq
 
 # ============================================
@@ -98,7 +98,7 @@ group :development, :test do
   gem "rubocop-rspec", require: false
 
   # Testing
-  gem "rspec-rails", "~> 7.0"      # RSpec testing framework
+  gem "rspec-rails", "~> 8.0"      # RSpec testing framework
   gem "factory_bot_rails"          # Test factories
   gem "faker"                      # Fake data generator
 
