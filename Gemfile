@@ -72,7 +72,7 @@ gem "appsignal"                    # APM and error tracking
 # ============================================
 # Utilities
 # ============================================
-gem "pagy", "~> 9.0"               # Fast pagination
+gem "pagy", "~> 43.2"              # Fast pagination
 gem "discard", "~> 1.3"            # Soft deletes
 gem "tzinfo-data", platforms: %i[windows jruby]
 
