@@ -217,7 +217,7 @@ GEM
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jmespath (1.6.2)
-    json (2.18.1)
+    json (2.19.3)
     json-schema (6.1.0)
       addressable (~> 2.8)
       bigdecimal (>= 3.1, < 5)
@@ -306,7 +306,7 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
-    pagy (43.2.10)
+    pagy (43.5.1)
       json
       uri
       yaml
@@ -590,7 +590,7 @@ DEPENDENCIES
   importmap-rails
   kamal
   letter_opener
-  pagy (~> 43.2)
+  pagy (~> 43.5)
   pg (~> 1.1)
   propshaft
   puma (>= 5.0)
