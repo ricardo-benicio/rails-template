@@ -12,6 +12,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :trackable,
          :jwt_authenticatable, jwt_revocation_strategy: self
+  devise :omniauthable, omniauth_providers: %i[google_oauth2 github]
 
   # ============================================
   # Enums
@@ -55,9 +56,24 @@ class User < ApplicationRecord
     }
   end
 
+  def self.from_omniauth(auth)
+    find_or_initialize_by(provider: auth.provider, uid: auth.uid) do |user|
+      user.email = auth.info.email
+      user.first_name = auth.info.first_name || auth.info.name.to_s.split.first || "User"
+      user.last_name = auth.info.last_name || auth.info.name.to_s.split.last || auth.uid
+      user.password = Devise.friendly_token[0, 20]
+      user.skip_confirmation!
+    end
+  end
+
   private
 
   def set_jti
     self.jti ||= SecureRandom.uuid
+  end
+
+  def after_confirmation
+    super
+    WelcomeEmailJob.perform_later(id)
   end
 end
