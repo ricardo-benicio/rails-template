@@ -18,6 +18,12 @@ class UserBlueprint < ApplicationBlueprint
     field :sign_in_count
     field :current_sign_in_at, datetime_format: "%Y-%m-%dT%H:%M:%S.%LZ"
     field :last_sign_in_at, datetime_format: "%Y-%m-%dT%H:%M:%S.%LZ"
+
+    field :avatar_url do |user|
+      if user.avatar.attached?
+        Rails.application.routes.url_helpers.rails_blob_url(user.avatar, only_path: true)
+      end
+    end
   end
 
   # Admin view - includes everything

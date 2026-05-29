@@ -4,6 +4,7 @@ module Api
   module V1
     class BaseController < ApplicationController
       include Pagy::Backend
+      include Pundit::Authorization
 
       # Skip CSRF for API
       skip_before_action :verify_authenticity_token
@@ -11,8 +12,13 @@ module Api
       # Authenticate via JWT
       before_action :authenticate_user!
 
+      # Enforce authorization on every action
+      after_action :verify_authorized
+
       # Respond with JSON
       respond_to :json
+
+      rescue_from Pundit::NotAuthorizedError, with: :render_forbidden
 
       private
 
@@ -49,6 +55,10 @@ module Api
         response = data
         response[:meta] = meta if meta.present?
         render json: response, status: status
+      end
+
+      def render_forbidden
+        render json: { error: "Forbidden" }, status: :forbidden
       end
     end
   end

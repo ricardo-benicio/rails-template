@@ -40,6 +40,7 @@ RSpec.configure do |config|
 
   # Include FactoryBot methods
   config.include FactoryBot::Syntax::Methods
+  config.include Pundit::Matchers, type: :policy
 
   # Include Pagy helpers in controller/request specs
   config.include Pagy::Backend, type: :controller

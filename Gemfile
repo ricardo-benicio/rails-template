@@ -24,6 +24,7 @@ gem "tailwindcss-rails"            # Tailwind CSS
 # ============================================
 gem "devise"                       # Authentication solution
 gem "devise-jwt"                   # JWT authentication for APIs
+gem "pundit"                       # Authorization via policy objects
 gem "bcrypt", "~> 3.1.7"           # Secure password hashing
 
 # ============================================
@@ -104,6 +105,7 @@ group :development, :test do
 
   # API Documentation
   gem "rswag-specs"                # Generate Swagger docs from specs
+  gem "pundit-matchers"               # RSpec matchers for Pundit policies
 end
 
 group :development do

@@ -52,3 +52,9 @@
 # Ignore OS files
 .DS_Store
 Thumbs.db
+
+# Ignore Claude Code and agent files
+.agents/
+.claude/
+_bmad/
+CLAUDE.local.md
