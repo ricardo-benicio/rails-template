@@ -11,6 +11,7 @@ module Api
 
       # Authenticate via JWT
       before_action :authenticate_user!
+      before_action :set_current_tenant
 
       # Enforce authorization on every action
       after_action :verify_authorized
@@ -55,6 +56,18 @@ module Api
         response = data
         response[:meta] = meta if meta.present?
         render json: response, status: status
+      end
+
+      def set_current_tenant
+        account_id = request.headers[X-Account-ID].presence
+        return unless account_id
+
+        account = current_user&.accounts&.find_by(id: account_id)
+        if account
+          ActsAsTenant.current_tenant = account
+        else
+          render json: { error: "Account not found or access denied" }, status: :forbidden
+        end
       end
 
       def render_forbidden

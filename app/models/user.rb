@@ -3,6 +3,9 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
   include Discardable
+
+  has_many :account_memberships, dependent: :destroy
+  has_many :accounts, through: :account_memberships
   has_paper_trail only: [ :email, :role, :discarded_at ]
   has_one_attached :avatar
 
@@ -53,7 +56,8 @@ class User < ApplicationRecord
       "sub" => id,
       "jti" => jti,
       "role" => role,
-      "email" => email
+      "email" => email,
+      "account_ids" => account_memberships.pluck(:account_id)
     }
   end
 

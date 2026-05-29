@@ -74,6 +74,11 @@ Rails.application.routes.draw do
       # Current user
       get "users/me", to: "users#me"
       patch "users/me", to: "users#update_me"
+
+      # Accounts & memberships
+      resources :accounts, only: %i[index show create update destroy] do
+        resources :memberships, only: %i[create destroy]
+      end
     end
   end
 
