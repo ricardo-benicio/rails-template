@@ -40,6 +40,8 @@ RSpec.configure do |config|
 
   # Include FactoryBot methods
   config.include FactoryBot::Syntax::Methods
+  config.before(:suite) { PaperTrail.enabled = true }
+  config.before(:each) { ActiveJob::Base.queue_adapter = :test }
   config.include Pundit::Matchers, type: :policy
 
   # Include Pagy helpers in controller/request specs

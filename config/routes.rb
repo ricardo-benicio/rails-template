@@ -101,4 +101,9 @@ Rails.application.routes.draw do
   # Root Path
   # ============================================
   root "home#index"
+
+  # Flipper feature flags UI (admin only)
+  constraints(->(req) { req.session[:user_id].present? }) do
+    mount Flipper::UI.app(Flipper) => '/admin/flipper', as: :flipper
+  end
 end
