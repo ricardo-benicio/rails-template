@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   # ============================================
   # Devise Routes (Web)
   # ============================================
-  devise_for :users, skip: [ :sessions, :registrations, :passwords, :confirmations ]
+  devise_for :users,
+    skip: [ :sessions, :registrations, :passwords, :confirmations ],
+    controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   devise_scope :user do
     # Sessions

@@ -26,6 +26,9 @@ gem "devise"                       # Authentication solution
 gem "devise-jwt"                   # JWT authentication for APIs
 gem "pundit"                       # Authorization via policy objects
 gem "bcrypt", "~> 3.1.7"           # Secure password hashing
+gem "omniauth-google-oauth2"       # Google OAuth2 strategy
+gem "omniauth-github"              # GitHub OAuth strategy
+gem "omniauth-rails_csrf_protection" # CSRF protection for OmniAuth
 
 # ============================================
 # Admin Dashboard
