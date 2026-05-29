@@ -36,7 +36,7 @@ RSpec.describe "Api::V1::Users", type: :request do
     context "when authenticated" do
       it "updates user profile" do
         patch "/api/v1/users/me",
-              params: { user: { first_name: "Jane", last_name: "Smith" } },
+              params: { user: { first_name: "Jane", last_name: "Smith" } }.to_json,
               headers: authenticated_headers(user)
 
         expect(response).to have_http_status(:ok)
@@ -46,7 +46,7 @@ RSpec.describe "Api::V1::Users", type: :request do
 
       it "returns errors for invalid data" do
         patch "/api/v1/users/me",
-              params: { user: { first_name: "" } },
+              params: { user: { first_name: "" } }.to_json,
               headers: authenticated_headers(user)
 
         expect(response).to have_http_status(:unprocessable_entity)
@@ -57,7 +57,7 @@ RSpec.describe "Api::V1::Users", type: :request do
     context "when not authenticated" do
       it "returns unauthorized" do
         patch "/api/v1/users/me",
-              params: { user: { first_name: "Jane" } },
+              params: { user: { first_name: "Jane" } }.to_json,
               headers: json_headers
 
         expect(response).to have_http_status(:unauthorized)

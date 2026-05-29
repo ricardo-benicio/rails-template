@@ -3,6 +3,7 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
   include Discardable
+  has_one_attached :avatar
 
   # ============================================
   # Devise modules
@@ -48,6 +49,7 @@ class User < ApplicationRecord
   def jwt_payload
     {
       "sub" => id,
+      "jti" => jti,
       "role" => role,
       "email" => email
     }
