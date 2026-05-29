@@ -78,6 +78,10 @@ gem "appsignal"                    # APM and error tracking
 # ============================================
 gem "pagy", "~> 9.0"               # Fast pagination
 gem "discard", "~> 1.3"            # Soft deletes
+gem "noticed", "~> 2.0"            # Notification system
+gem "paper_trail"                  # Audit log / model versioning
+gem "flipper-active_record"        # Feature flags with AR backend
+gem "flipper-ui"                   # Flipper admin UI
 gem "tzinfo-data", platforms: %i[windows jruby]
 
 # ============================================

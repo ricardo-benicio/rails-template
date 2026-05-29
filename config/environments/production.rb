@@ -1,4 +1,3 @@
-[Error - 15:52:32] Starting client failedtime"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.

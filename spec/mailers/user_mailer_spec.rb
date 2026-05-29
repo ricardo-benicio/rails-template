@@ -11,7 +11,7 @@ RSpec.describe UserMailer, type: :mailer do
   end
 
   it 'sends to user email' do
-    expect(mail.to).to eq([user.email])
+    expect(mail.to).to eq([ user.email ])
   end
 
   it 'includes first name in body' do

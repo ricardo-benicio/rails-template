@@ -3,6 +3,7 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
   include Discardable
+  has_paper_trail only: [ :email, :role, :discarded_at ]
   has_one_attached :avatar
 
   # ============================================
